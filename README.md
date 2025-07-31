@@ -10,16 +10,16 @@
 - Python 3.11+
 - Зависимости проекта перечислены в `requirements.txt`
 ## Запуск приложения
-### Без Docker
 1. Установите зависимости:
    ```bash
    pip install -r requirements.txt
    ```
-2. Запустите приложение:
+2. Создайте файл .env и вставьте туда свой ключ TronApi или используйте готовый (API_KEY = '2955947c-1c12-4b4e-9f9e-a31ae1b12192')
+3. Запустите приложение:
    ```bash
    uvicorn src.main:app --reload
    ```
-3. Приложение будет доступно по адресу: [http://localhost:8000](http://localhost:8000)
+4. Приложение будет доступно по адресу: [http://localhost:8000](http://localhost:8000)
 
 ## Тестирование
 ### Запуск тестов
@@ -94,7 +94,3 @@ curl -X 'POST' \
   - `test_unit.py` - юнит-тесты
   - `conftest.py` - фикстуры pytest
 - `requirements.txt` - зависимости для запуска
-- `requirements-dev.txt` - зависимости для разработки
-- `Dockerfile` - конфигурация Docker
-- `docker-compose.yml` - конфигурация Docker Compose
-- `.env` - файл с переменными окружения (не включен в репозиторий)
