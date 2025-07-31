@@ -5,23 +5,29 @@ from pydantic import BaseModel
 from sqlalchemy import select
 from src.database.database import get_session
 from src.database.models import AddrRequest, Query, PaginationDep
+from dotenv import load_dotenv
+import os
 
-async def get_info(addr: str, db = Depends(get_session)):
-    async with AsyncTron(AsyncHTTPProvider(api_key='2955947c-1c12-4b4e-9f9e-a31ae1b12192'), network='mainnet') as client:
+load_dotenv()
+
+async def get_info(addr: AddrRequest, db = Depends(get_session)):
+    async with AsyncTron(AsyncHTTPProvider(api_key=os.getenv('API_KEY')), network='mainnet') as client:
         
-        account = await client.get_account(addr)
-        bandwidth = await client.get_bandwidth(addr)
+        account = await client.get_account(addr.addr)
+        bandwidth = await client.get_bandwidth(addr.addr)
 
         try:
             energy = account['account_resource']['energy_window_size']
-            name = account['account_name']
         except:
             energy = 0
+        try:
+            name = account['account_name']
+        except:
             name = 'blankname'
 
         db_request = Query(
             name = name,
-            adress = addr,
+            adress = addr.addr,
             bandwidth = bandwidth,
             energy = energy,
             trx = account['balance']

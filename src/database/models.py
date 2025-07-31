@@ -2,8 +2,12 @@ from fastapi import Depends
 from sqlmodel import SQLModel, Field
 from typing import Annotated, Optional
 from pydantic import BaseModel
+from sqlalchemy.orm import declarative_base
+
+Base = declarative_base()
 
 class Query(SQLModel, table=True):
+    __tablename__ = 'query'
     id: Annotated[Optional[int], Field(primary_key=True, default=None)]
     name: Annotated[str, Field(default=None)]
     adress: str

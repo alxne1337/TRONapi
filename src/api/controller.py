@@ -7,7 +7,7 @@ from typing import Annotated, List
 router = APIRouter(prefix='/API', tags = ['API'])
 
 @router.post('/fromAPI', response_model=Query)
-async def get_info_from_api(addr: str, db = Depends(get_session)):
+async def get_info_from_api(addr: AddrRequest, db = Depends(get_session)):
     response = await get_info(addr, db)
     return response
 
